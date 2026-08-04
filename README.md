@@ -108,9 +108,9 @@
 4. gov_job_program 0.120
 5. gov_vocational_train 0.049
 6. active_job_hunting 0.044
-7. region_code_15 0.038
+7. region_code_15 0.039
 8. region_code_6 0.032
-9. region_code_4 0.025
+9. region_code_4 0.026
 10. region_code_16 0.024
 <img width="2326" height="706" alt="image" src="https://github.com/user-attachments/assets/2a025c67-7dbb-4219-8fc6-971c0bd56212" />
 
