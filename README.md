@@ -41,7 +41,9 @@
 - 원본 데이터에 AI_솔루션, 검증_여부 컬럼 추가 후 최종 데이터셋 출력
 
 ## 💡 EDA 핵심 인사이트
-카이제곱 검정으로 범주형 변수와 취업 여부 간 연관성을 확인한 결과, 나이와 학력이 취업 여부에 가장 큰 영향을 미쳤습니다. image
+카이제곱 검정으로 범주형 변수와 취업 여부 간 연관성을 확인한 결과, 나이와 학력이 취업 여부에 가장 큰 영향을 미쳤습니다.
+<img width="2308" height="1150" alt="image" src="https://github.com/user-attachments/assets/d5eab543-9a72-4041-8281-7f7ad7db7f3f" />
+
 
 ### 학력별 취업률
 1 = 고졸미만 2 = 고졸 3 = 전문대졸 4 = 4년제 대졸 5 = 석사, 박사
@@ -133,8 +135,6 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
 - 추천 직무·프로그램: SW테스트/IT서포트 or 스마트생산 직무 → 국민내일배움카드 연계 + 심리상담 및 진로탐색 프로그램
 - 로드맵: 1-3개월(상담, 프로그램 신청) + 4-12개월(훈련 수료, 자격증, 취업 연계)
 <img width="1436" height="544" alt="스크린샷 2026-08-04 오후 3 09 21" src="https://github.com/user-attachments/assets/9b551110-abbf-4309-bcb8-ab27cf5ae473" />
-
-<img width="1288" height="636" alt="스크린샷 2026-08-04 오후 3 07 55" src="https://github.com/user-attachments/assets/ec0832f1-b708-4f2d-9352-a84226a742e7" />
 
 
 ## ✅ 결과 및 기대효과
