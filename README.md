@@ -43,29 +43,25 @@
 
 ## 💡 EDA 핵심 인사이트
 카이제곱 검정으로 범주형 변수와 취업 여부 간 연관성을 확인한 결과, 나이와 학력이 취업 여부에 가장 큰 영향을 미쳤습니다.
-<img width="2308" height="1150" alt="image" src="https://github.com/user-attachments/assets/d5eab543-9a72-4041-8281-7f7ad7db7f3f" />
+<img width="2272" height="1150" alt="image" src="https://github.com/user-attachments/assets/921aef66-eb5a-4eed-8318-93000f4ac919" />
 
 
 ### 학력별 취업률
 1 = 고졸미만 2 = 고졸 3 = 전문대졸 4 = 4년제 대졸 5 = 석사, 박사
-<img width="1162" height="902" alt="image" src="https://github.com/user-attachments/assets/5a11c909-9af0-4c36-a41b-616916c9f7b0" />
+<img width="1320" height="1156" alt="image" src="https://github.com/user-attachments/assets/430f0057-ede1-4c90-a6ea-f99d400b3625" />
 
 
 ### 취업청년 vs 미취업청년 핵심 변수 비교
-<img width="2224" height="568" alt="image" src="https://github.com/user-attachments/assets/3da2410b-b58b-4f3e-a460-a800ba915621" />
-
+<img width="2228" height="702" alt="image" src="https://github.com/user-attachments/assets/8f5228a5-ac85-4177-9e20-b2af655b6617" />
 
 1. **나이 -** 취업청년(1) 평균 나이가 미취업청년(0)보다 높다. 나이가 많을수록 취업 경험이 쌓여 취업률이 높은 경향으로 해석할 수 있다.
 2. **최종 학력 -** 학력 3.0(전문대졸), 4.0(대졸), 5.0(석사)에서 취업(1) 비율이 높다. 학력 2.0(고졸)은 미취업(0) 비율이 취업보다 높은 유일한 구간.
 3. **시험 준비 여부** - 시험 미준비(2.0) 구간에서 취업(1) 비율이 압도적으로 높다. 즉, 시험 준비 중인 청년은 아직 취업을 안 한 경우가 많다고 해석할 수 있다. & 취업한 청년은 시험 준비를 거의 안한다.
-4. **정부 일자리 프로그램** (모수가 적어 해석 주의 필요)
+
+<img width="1580" height="680" alt="image" src="https://github.com/user-attachments/assets/34382cce-f381-4626-9563-0d2dbde61d6a" />
+- **정부 일자리 프로그램**, **정부 직업훈련**
     1. 미참여(2.0) 청년의 취업 비율이 더 높다. → 취업한 청년은 정부지원 프로그램에 참여할 필요가 없기 때문이다.
     2. 미취업청년 다수는 정부지원프로그램을 참여(1.0)했다.
-
-<img width="1118" height="510" alt="image" src="https://github.com/user-attachments/assets/87b7e5a5-04d7-4eff-b1b0-bdb68dc35675" />
-
-5. **정부 직업훈련** - 정부 일자리 프로그램과 동일한 패턴이다. 미참여(2.0)가 취업률이 더 높다.
-6. **적극적 구직활동 -** 미구직(1.0) 청년이 오히려 취업 비율이 높다. 이미 취업한 사람은 구직활동을 안 하는 게 당연하니까 해석 시 주의가 필요하다.
 
 ## 📕 방법론
 
@@ -77,7 +73,7 @@
 |---|---|---|
 | 변별력 상실 | `num_certificates` 결측치를 0으로 채워 전량 0값 처리됨 | 컬럼 제거 |
 | 데이터 누수 | `weekly_work_hours`, `employment_status`가 취업자에게만 값이 존재 → 타깃 변수 힌트 제공 | 컬럼 제거 |
-| 과적합 위험 | 식별자 `user_id` 포함 | 컬럼 제거 |
+| 과적합 위험 | 식별자 `user_id` 포함 | 인덱스로 전환|
 
 전처리는 모델 성격에 맞춰 반복적으로 점검, 보완하는 과정이라는 것을 확인했습니다.
 
@@ -85,16 +81,17 @@
 
 | 모델 | Accuracy | Test AUC | CV AUC |
 |---|---|---|---|
-| Logistic Regression | 0.73 | 0.789 | 0.800 |
-| Random Forest | 0.73 | 0.775 | 0.765 |
+| Logistic Regression | 0.73 | 0.788 | 0.799 |
+| Random Forest | 0.73 | 0.775 | 0.764 |
 | XGBoost | 0.75 | 0.795 | 0.791 |
 
-#### → 세 지표 모두에서 가장 안정적인 XGBoost를 최종 모델로 선정
+#### → Accuracy와 Test AUC에서 가장 우수한 XGBoost를 최종 모델로 선정
 
 ### 3) 하이퍼파라미터 튜닝
 
-- 최적 파라미터: `{'learning_rate': 0.05, 'max_depth': 5, 'n_estimators': 100}`
-- 튜닝 전 AUC: 0.795 → 튜닝 후 AUC: 0.804
+▶ XGBoost 하이퍼파라미터 튜닝을 시작합니다... (약 1~2분 소요)
+튜닝 후 Test AUC: 0.795 / CV AUC(mean): 0.804
+최적 하이퍼파라미터: max_depth=5, learning_rate=0.05, n_estimators=100
 
 ### 4) 분류 임계값 대신 분위수 기준 채택
 
@@ -108,20 +105,20 @@
 3. is_preparing_exam 0.137
 4. gov_job_program 0.120
 5. gov_vocational_train 0.049
-6. active_job_hunting 0.044
+6. num_applications (원서접수/면접 횟수) 0.044
 7. region_code_15 0.039
 8. region_code_6 0.032
 9. region_code_4 0.026
 10. region_code_16 0.024
-<img width="2326" height="706" alt="image" src="https://github.com/user-attachments/assets/2a025c67-7dbb-4219-8fc6-971c0bd56212" />
+<img width="2246" height="680" alt="image" src="https://github.com/user-attachments/assets/270d2eec-718b-4a0a-b4c2-a29d4dca335f" />
+
 
 ### 고위험군(하위 20%, 735명) 프로파일
 - 고졸 68% (497명) — Feature Importance 2위(edu_level)와 일치
 - 대다수 시험 준비 미진행, 정부 지원 프로그램 미참여
-- 735명 중 714명(약 97%)은 실제로 적극적인 구직활동 중
 - 22세 전후 어린 연령대에 집중
 
-#### 이들은 의지가 없는 게 아니라 방향을 못 찾고 있는 것이었고, 필요한 건 "시험 준비를 시작하라"는 조언이 아니라 시험이 필요 없는 직무로 빠르게 진입할 수 있는 현실적 경로 제시라는 인사이트를 도출했습니다.
+#### 이들 대부분이 시험 준비나 정부 지원 프로그램에 참여하지 않고 있다는 점에서, 필요한 건 "시험 준비를 시작하라"는 조언이 아니라 시험이 필요 없는 직무로 빠르게 진입할 수 있는 현실적 경로 제시라는 인사이트를 도출했습니다.
 
 ## 🤖 AI 자동 컨설팅 파이프라인 (LLM + n8n)
 Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google Sheets Update
@@ -131,13 +128,13 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
 - Code 노드로 컨설팅 결과에 핵심 상담 요소(학력, 프로그램 등) 포함 여부를 PASS/FAIL로 자동 검증
 - 검증된 결과를 원본 데이터에 파생변수(AI_솔루션, 검증_여부)로 병합해 최종 데이터셋 산출
 #### 검증 방식: LLM API 비용 문제로 고위험군 735명 전체가 아닌 랜덤 20명 샘플로 파이프라인을 먼저 검증했으며, 동일 로직으로 전체 데이터 확장이 가능함을 확인했습니다.
-<img width="2390" height="1240" alt="image" src="https://github.com/user-attachments/assets/2de35272-1386-4ec4-a406-281967fdfd50" />
+<img width="2390" height="1240" alt="image" src="https://github.com/user-attachments/assets/d6b95aa3-5d6c-4d53-847d-a19548b7ec69" />
 
 ### 솔루션 요약
 - 진단: 고졸 + 정부 지원 프로그램 미경험 + 구직 중단 상태
 - 추천 직무·프로그램: SW테스트/IT서포트 or 스마트생산 직무 → 국민내일배움카드 연계 + 심리상담 및 진로탐색 프로그램
 - 로드맵: 1-3개월(상담, 프로그램 신청) + 4-12개월(훈련 수료, 자격증, 취업 연계)
-<img width="1436" height="544" alt="스크린샷 2026-08-04 오후 3 09 21" src="https://github.com/user-attachments/assets/9b551110-abbf-4309-bcb8-ab27cf5ae473" />
+<img width="1436" height="544" alt="스크린샷 2026-08-04 오후 3 09 21" src="https://github.com/user-attachments/assets/9b551110-abbf-4309-bcb8-ab27cf5ae473" />
 
 
 ## ✅ 결과 및 기대효과
@@ -160,6 +157,7 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
     1. 하이퍼파라미터 튜닝 결과(max_depth=5)와 실제 최종 모델(max_depth=3)이 불일치       → 재확인 후 최종 모델을 튜닝 결과값으로 재학습
     2. 고위험군 인원수가 문서 내에서 759명/735명으로 혼재 → 코드 출력값 기준으로 735명 통일
     3. '시험 준비 안 함'을 결핍으로 해석하는 **프롬프트 로직이 프로젝트 철학(빠른 취업 우선)과 모순됨을 발견** → 인사이트 문구를 재작성
+    4. 변수 y04d001을 'active_job_hunting'(적극적 구직활동)으로 오매핑한 사실을 코드북 대조로 발견 → 실제로는 y04c113이 맞는 변수였으나, 결측치가 많아 해석이 어려워 최종적으로 드랍 결정 → 이 과정에서 카이제곱 분석에 데이터 누수 변수(weekly_work_hours)가 남아있던 것, 하이퍼파라미터 하드코딩, 고위험군 매칭이 행 순서에 의존하던 부분 등을 함께 재점검하고 리팩토링
 
 ### 한계
 현재는 정적 패널 데이터 기반의 1회성 배치 분석입니다. 실제 가치를 내기 위해선 실시간 추론 API(scikit-learn Pipeline/ColumnTransformer), 전처리 객체 버전 관리(MLflow), B2G/B2B용 대시보드 등의 엔지니어링이 추가로 필요합니다.
