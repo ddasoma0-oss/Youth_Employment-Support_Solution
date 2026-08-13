@@ -43,6 +43,7 @@
 
 ## 💡 EDA 핵심 인사이트
 카이제곱 검정으로 범주형 변수와 취업 여부 간 연관성을 확인한 결과, 나이와 학력이 취업 여부에 가장 큰 영향을 미쳤습니다.
+(age는 연속형이라 카이제곱 통계량 과대추정 가능)
 <img width="2272" height="1150" alt="image" src="https://github.com/user-attachments/assets/921aef66-eb5a-4eed-8318-93000f4ac919" />
 
 
@@ -71,9 +72,9 @@
 
 | 문제 | 원인 | 조치 |
 |---|---|---|
-| 변별력 상실 | `num_certificates` 결측치를 0으로 채워 전량 0값 처리됨 | 컬럼 제거 |
-| 데이터 누수 | `weekly_work_hours`, `employment_status`가 취업자에게만 값이 존재 → 타깃 변수 힌트 제공 | 컬럼 제거 |
-| 과적합 위험 | 식별자 `user_id` 포함 | 인덱스로 전환|
+| 타겟 직접 누수 | eco_status_total로 target_employed를 생성 → 타깃 정답을 그대로 포함 | 컬럼 제거 |
+| 데이터 누수 | weekly_work_hours, employment_status가 취업자에게만 값이 존재 → 타깃 변수 힌트 제공 | 컬럼 제거 |
+| 과적합 위험 | 식별자 user_id 포함 | 인덱스로 전환 |
 
 전처리는 모델 성격에 맞춰 반복적으로 점검, 보완하는 과정이라는 것을 확인했습니다.
 
@@ -150,6 +151,7 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
 ## 📍 트러블슈팅 & 회고
 ### 이슈 원인 해결
 - XGBoost 변수명 충돌 앞서 정의한 X, y를 최종 학습 셀에서 재사용하다 충돌 -> df_modeling 기준으로 X, y 재선언
+- XGBoost 딕셔너리 언패킹 누락 에러: grid_search.best_params_를 **없이 그대로 XGBClassifier에 넣어서 dict 전체가 objective 파라미터 값으로 들어가버려 에러 발생 → ** 추가해서 해결
 - n8n 워크플로우 설계 미숙 -> 첫 자동화 툴 사용 공식문서/구글링 기반 학습 후 적용
 - LLM API 비용 부담(고위험군 735명 전체 컨설팅 생성 시 비용 과다) -> 20명 샘플로 파이프라인 우선 검증 후 확장 가능 구조로 설계
 
