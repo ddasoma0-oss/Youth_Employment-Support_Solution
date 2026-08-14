@@ -168,4 +168,4 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
 현재는 정적 패널 데이터 기반의 1회성 배치 분석입니다. 실제 가치를 내기 위해선 실시간 추론 API(scikit-learn Pipeline/ColumnTransformer), 전처리 객체 버전 관리(MLflow), B2G/B2B용 대시보드 등의 엔지니어링이 추가로 필요합니다.
 
 ## 📓 기술 스택
-Python: Pandas, scikit-learn, XGBoost / n8n: LLM API(Gemini), Google Sheets API / AI: Claude, Gemini, ChatGPT
+Python: Pandas, scikit-learn, XGBoost / n8n: 파이프라인 설계, LLM API(Gemini), Google Sheets API / AI: Claude, Gemini, ChatGPT
