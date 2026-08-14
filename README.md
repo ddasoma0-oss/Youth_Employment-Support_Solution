@@ -136,7 +136,8 @@ Google Sheets → Loop → AI Agent → Wait(5s) → Code(검증) → Google She
 - 추천 직무·프로그램: 생산/품질관리 보조 or 물류/재고관리 보조 직무 → 국민내일배움카드 연계 + 청년도전지원사업·국민취업지원제도(심리상담 및 진로탐색)
 - 로드맵: 1-3개월(고용센터 상담, 프로그램 신청·선택, 훈련계획 수립) + 4-12개월(직업훈련 수료 및 자격증 취득, 취업지원서비스 활용해 구직·취업 연계)
 - 기대효과: 단기적으로 구직 의욕 회복 및 명확한 직업 목표 설정, 장기적으로 직무 역량·자격증 확보를 통한 취업 경쟁력 강화 및 경제적 자립 기반 마련
-<img width="1260" height="468" alt="스크린샷 2026-08-14 오후 3 26 21" src="https://github.com/user-attachments/assets/92eeaaa7-6820-4622-8c1b-0cb0d950265a" />
+<img width="2520" height="984" alt="image" src="https://github.com/user-attachments/assets/29cf1e36-a8f7-4397-8d6a-b4c99e134634" />
+
 
 
 ## ✅ 결과 및 기대효과
